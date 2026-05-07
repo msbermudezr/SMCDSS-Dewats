@@ -17,7 +17,7 @@ r_weight_m = {
 }
 
 i_ranges_df = {
-	"Indicator": ["Project type", "Stratum", "Stratum", "Sew_Dist", "Distrital distance", "Peri-urb distance", "Green areas", "Sew_Dist", "Urb-Lay", "Area", "Distance to PTAR's", "Slope", "Urban Zoning (Agriculture)", "Urban Zoning (Aquaculture)", "Energy gird", "Green areas", "Population", "Population density", "Urban Zoning (Agriculture-dist)", "Distance to supply grid", "Distance to road network", "Urban Zoning (Residential-dist)", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type"],
+	"Variable": ["Project type", "Stratum", "Stratum", "Sew_Dist", "Distrital distance", "Peri-urb distance", "Green areas", "Sew_Dist", "Urb-Lay", "Area", "Distance to PTAR's", "Slope", "Urban Zoning (Agriculture)", "Urban Zoning (Aquaculture)", "Energy gird", "Green areas", "Population", "Population density", "Urban Zoning (Agriculture-dist)", "Distance to supply grid", "Distance to road network", "Urban Zoning (Residential-dist)", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type"],
 	"Max": [1, 6, 6, 2000, 5000, 1000, 5000, 2000, 1000, 4000, 10000, 5, 1, 1, 2000, 5000, 5000, 0, 10000, 5000, 5000, 1000, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 	"Min": [1, 1, 1, 0, 0, 0, 0, 0, 0, 20, 0, 1, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 }
