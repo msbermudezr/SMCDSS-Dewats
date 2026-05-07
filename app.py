@@ -4,6 +4,7 @@ import numpy as np
 from streamlit_folium import st_folium
 import folium
 import local_p as lp
+import data_bckb as db
 from shapely.geometry import Point
 import time
 
@@ -180,23 +181,34 @@ if st.button("Ejecutar Analisis", disabled=(total_w != 100)):
     st.write("### Resultados")
 
     #Getting the coordinates from the user interface
+    st.info("Analysis engine is ready to receive data from your backbone...")
+    
     if map_data['last_clicked']:
 
         user_lat = map_data['last_clicked']['lat']
         user_lon = map_data['last_clicked']['lng']
     
         st.write(f"📍 Punto Seleccionado: {user_lat:.4f}, {user_lon:.4f}")
-    
-        # CALL the function from your logic file
-        result = lp.read_stratum(Point(user_lon,user_lat),gpkg_stratum)
-        result1 = lp.nearest_road(Point(user_lon,user_lat),gpkg_roads)
-    
-        # Show the result
-        st.info(result)
-        st.info(result1)
+        project_params = {
+            'point' : Point(user_lon,user_lat),
+            'project type': project_type,
+            'reuse options' : reuse_options,
+            'grease_p' : grease_present,
+            'st_layer' : gpkg_stratum,
+            'population' : population,
+            'av_area' : available_area,
+            'roads' : gpkg_roads,
+            'sewage' : gpkg_sewer,
+            'parks' : gpkg_parks,
+            'supply' : gpkg_supply,
+            'ptar' : gpkg_ptar,
+            'energy' : gpkg_elect,
+            'zoning' : gpkg_gzones,
+            'w_bodies': gpkg_water
+        }
+        db.evaluate_ind(project_params)
     else:
         st.warning("Please click a location on the map to start the analysis.")
 
     #Call to the logic function
     st.toast('Suitability map generated!', icon='✅')
-    st.info("Analysis engine is ready to receive data from your backbone...")
