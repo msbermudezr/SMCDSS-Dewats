@@ -22,15 +22,15 @@ i_ranges_df = {
 	"Min": [1, 1, 1, 0, 0, 0, 0, 0, 0, 20, 0, 1, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 }
 
-r_weight = pd.DataFrame(r_weight_m).set_index("Variables")
+r_weight = pd.DataFrame(r_weight_m).set_index("Criteria")
 
 #Ranges for normalization process
 
-ind_range = pd.DataFrame(i_ranges_df).set_index("Indicator")
+ind_range = pd.DataFrame(i_ranges_df).set_index("Variable")
 
 #Managing the absolute weights of each indicator
 
-ind_data = pd.DataFrame(r_weight_m).set_index("Indicator")
+ind_data = pd.DataFrame(r_weight_m).set_index("Variable")
 
 ind_data['Value'] = 0
 ind_data = ind_data[['Inverse','Value']]
