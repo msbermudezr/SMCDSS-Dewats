@@ -12,14 +12,14 @@ r_weight_m = {
 	"RBC": [0, 0.5, 0.5, 0.75, 0.25, 0.25, 0.75, 0.75, 0.5, 0.75, 0.25, 0.25, 0.5, 0.25, 0.5, 0.75, 0.5, 0.5, 0.25, 0.25, 0.25, 0.75, 0.5, 0.5, 0.75, 1, 0.5, 0.25, 0.75, 0.25, 0.25, 0.5, 0.5],
 	"SAS": [0, 0.75, 0.75, 1, 1, 0.5, 0.25, 0, 0, 0.25, 0, 0.5, 0.25, 0, 1, 0, 0.25, 0, 0.5, 0.75, 0.5, 0.25, 0.5, 0.5, 0.5, 0.5, 0.25, 0.25, 0.25, 0.25, 0.25, 0.75, 0.75],
 	"MBR": [0, 0, 0, 1, 0, 0, 1, 1, 0.75, 1, 0, 0.25, 0.75, 0.5, 0, 1, 1, 1, 0.25, 0.25, 0.25, 0.75, 1, 1, 1, 1, 0.75, 0.75, 1, 0.5, 0.5, 1, 1],
-	"Variable": ["Project type", "Stratum", "Stratum", "Sew_Dist", "Distrital distance", "Peri-urb distance", "Green areas", "Sew_Dist", "Urb-Lay", "Area", "Distance to PTAR's", "Slope", "Urban Zoning (Agriculture)", "Urban Zoning (Aquaculture)", "Energy gird", "Green areas", "Population", "Population density", "Urban Zoning (Agriculture-dist)", "Distance to supply grid", "Distance to road network", "Urban Zoning (Residential-dist)", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type"],
+	"Variable": ["Proj_type", "Stratum", "Stratum", "Sew_Dist", "Urb_area", "Peri_urb", "Green_areas", "Sew_Dist", "Urb_Lay", "Area", "Dist_ptar", "Slope", "Ag_zone", "Aq_zone", "En_grid", "Green_areas", "Population", "Population_den", "Ag_zone", "Sup_grid", "Dist_road", "Res_zone", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type"],
 	"Inverse": [False, True, True, False, True, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False],
 }
 
 i_ranges_df = {
-	"Variable": ["Project type", "Stratum", "Stratum", "Sew_Dist", "Distrital distance", "Peri-urb distance", "Green areas", "Sew_Dist", "Urb-Lay", "Area", "Distance to PTAR's", "Slope", "Urban Zoning (Agriculture)", "Urban Zoning (Aquaculture)", "Energy gird", "Green areas", "Population", "Population density", "Urban Zoning (Agriculture-dist)", "Distance to supply grid", "Distance to road network", "Urban Zoning (Residential-dist)", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type", "Project type"],
-	"Max": [1, 6, 6, 2000, 5000, 1000, 5000, 2000, 1000, 4000, 10000, 5, 1, 1, 2000, 5000, 5000, 0, 10000, 5000, 5000, 1000, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-	"Min": [1, 1, 1, 0, 0, 0, 0, 0, 0, 20, 0, 1, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	"Variable": ["Proj_type", "Stratum", "Stratum", "Sew_Dist", "Urb_area", "Peri_urb", "Green_areas", "Sew_Dist", "Urb_Lay", "Area", "Dist_ptar", "Slope", "Ag_zone", "Aq_zone", "En_grid", "Green_areas", "Population", "Population_den", "Ag_zone", "Sup_grid", "Dist_road", "Res_zone", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type", "Proj_type"],
+	"Max": [1, 6, 6, 2000, 1, 1, 5000, 2000, 1, 4000, 10000, 5, 1, 1, 2000, 5000, 5000, 500, 1, 5000, 5000, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+	"Min": [0, 1, 1, 0, 0, 0, 0, 0, 0, 20, 0, 1, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 }
 
 r_weight = pd.DataFrame(r_weight_m).set_index("Criteria")
@@ -35,7 +35,74 @@ ind_data = pd.DataFrame(r_weight_m).set_index("Variable")
 ind_data['Value'] = 0
 ind_data = ind_data[['Inverse','Value']]
 
-def normalize_sdss_indicators(ind_data, ranges_df, direction_col='Inverse'):
+def evaluate_ind(params):
+    #stratum = lp.read_stratum(params['point'],params['st_layer'])
+
+    #if stratum == 0:
+    #    stratum = "Zona industrial/commercial"
+
+    #d_road = lp.nearest_shape(params['point'],params['roads'])
+    #d_parks = lp.nearest_shape(params['point'],params['parks'])
+    #zone = lp.read_zone(params['point'],params['zoning'])
+    
+    p_type(params['project type'])
+
+    values = {
+        'Proj_type': 1,
+        'Stratum': 1,
+        'Sew_Dist': 1000,
+        'Urb_area': 0,
+        'Peri_urb': 1,
+        'Green_areas': 1,
+        'Urb_Lay': 0,
+        'Area': 2000,
+        'Dist_ptar': 5000,
+        'Slope': 2,
+        'Ag_zone': 0,
+        'Aq_zone': 0,
+        'En_grid': 1000,
+        'Population': 1000,
+        'Population_den': 400,
+        'Sup_grid': 2000,
+        'Dist_road': 1000,
+        'Res_zone': 1.
+    }
+
+    values = pd.DataFrame([values],index= ['Value']).T
+    ind_data.update(values)
+    n_data = norm_criteria(ind_data, ind_range)
+    final_weighted_matrix = t_weight(n_data, r_weight)
+    final_score = final_weighted_matrix.sum().reset_index()
+    final_score.columns = ['System','Final Score']
+    final_score = final_score.sort_values(by= 'Final Score', ascending= False)
+
+    st.write("Value results:", n_data)
+    st.write("Weighted Results:", final_weighted_matrix)
+    st.write("Final Scores:", final_score)
+
+    #st.write(f'Estrato: {stratum}')
+    #st.write(f'Zone: {zone}')
+    #st.write(f'Distancia hasta la via mas cercana: {d_road}')
+    #st.write(f'Distancia a la zona verde mas cercana: {d_parks}')
+    #st.write(r_weight)
+
+def t_weight(n_data, r_weights):
+    # 1. Filter for numbers
+    r_numeric = r_weights.select_dtypes(include=['number'])
+    
+    # 2. Check dimensions
+    if len(n_data) != len(r_numeric):
+        msg = f"Row mismatch! Weights: {len(r_numeric)}, Normalized: {len(n_data)}"
+        st.error(msg)
+        st.stop() # Prevents the return error entirely
+    
+    # 3. Perform multiplication using .values to bypass index alignment
+    # Ensure n_data has the column 'N_Data' as expected
+    r_matrix = r_numeric.multiply(n_data['N_Data'].values, axis=0)
+    
+    return r_matrix
+
+def norm_criteria(ind_data, ranges_df):
     """
     Normalizes indicators even with duplicate names, using a separate ranges table.
     
@@ -47,43 +114,19 @@ def normalize_sdss_indicators(ind_data, ranges_df, direction_col='Inverse'):
     # 1. Create a copy to avoid modifying the original data
     df = ind_data.copy()
     
-    # 2. Map the Unique Ranges to the (potentially duplicated) ind_data index
-    # This 'broadcasts' the same min/max to every row with the same name
-    v_min = df.index.map(ranges_df['min'])
-    v_max = df.index.map(ranges_df['max'])
-    
-    # 3. Apply Linear Normalization
-    # We use .sub and .div for alignment safety
-    denom = v_max - v_min
-    
-    # Handle the math
-    df['Norm_Score'] = (df['Value'] - v_min) / denom
-    
-    # 4. Clean up: Handle cases where max == min (division by zero)
-    df['Norm_Score'] = df['Norm_Score'].fillna(0).clip(0, 1)
-    
-    # 5. Apply Inverse Logic (1 - x)
-    # Checks if the direction column contains 'inverse' (case-insensitive)
-    is_inverse = df[direction_col].astype(str).str.lower() == 'inverse'
-    df.loc[is_inverse, 'Norm_Score'] = 1 - df.loc[is_inverse, 'Norm_Score']
-    
+    v_min = ranges_df['Min'].values
+    v_max = ranges_df['Max'].values
+    v_actual = df['Value'].values
+
+    # Perform the element-wise calculation
+    normalized_values = (v_actual - v_min) / (v_max - v_min)
+
+    inv_mask = df['Inverse'].values
+    normalized_values[inv_mask] = 1 - normalized_values[inv_mask]
+
+    df['N_Data'] = normalized_values
+
     return df
-
-def evaluate_ind(params):
-    stratum = lp.read_stratum(params['point'],params['st_layer'])
-
-    if stratum == 0:
-        stratum = "Zona industrial/commercial"
-
-    d_road = lp.nearest_shape(params['point'],params['roads'])
-    d_parks = lp.nearest_shape(params['point'],params['parks'])
-    zone = lp.read_zone(params['point'],params['zoning'])
-    p_type(params['project type'])
-    st.write(f'Estrato: {stratum}')
-    st.write(f'Zone: {zone}')
-    st.write(f'Distancia hasta la via mas cercana: {d_road}')
-    st.write(f'Distancia a la zona verde mas cercana: {d_parks}')
-    st.write(r_weight)
 
 def p_type(pr_type):
     match str(pr_type):
