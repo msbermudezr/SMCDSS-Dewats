@@ -110,43 +110,38 @@ with col2:
     
     # Project Type
     project_options = {
-        "Vivienda Unifamiliar": "Single-family Home",
-        "Edificio Residencial": "Residential Building",
-        "Barrio": "Neighborhood",
-        "Urbanismo": "Urban Development"
+        "Predio Residencial con Autonomía de Lote": "Residential Building",
+        "Unidad Habitacional en Propiedad Horizontal":"Single-family Flat",
+        "Núcleo Residencial Comunitario": "Neighborhood",
+        "Macroproyecto de Desarrollo Urbano": "Urban Development"
     }
     project_type = st.selectbox("Project Type / Tipo de Proyecto", options=list(project_options.keys()))
 
     # Graywater Sources
-    graywater_sources = {
-        "Lavamanos": "Washbasin / Hand Sink",
-        "Ducha": "Shower",
-        "Lavadora": "Washing Machine",
-        "Lavaplatos": "Kitchen Sink",
-        "Sifones de Piso": "Floor Drains",
-        "Lavadero": "Laundry Sink"
-    }
+    greywater_comp = ['Grasas y Aceites','Cloro y Desinfectantes', 'Detergentes y Tensioactivos', 'Solidos Suspendidos Gruesos y Material no Biodegradable']
+
     # Streamlit Multi-select
-    selected_labels = st.multiselect(
-        "Seleccione las Fuentes de Agua Gris a Tratar:",
-        options=list(graywater_sources.keys()),
-        help="Seleccione todas las fuentes de agua que contribuyen al caudal a tratar."
+    greywater_con = st.multiselect(
+        "Seleccione las sustancias inhibidoras o contaminantes críticos en el afluente:",
+        options=list(greywater_comp),
+        help="Identifique la presencia de agentes inhibidores en el agua residual cruda."
     )
 
     # Presence of oil
     # Toggle widget acting as the "Flip" button
-    grease_present = st.toggle(
-        label="Presencia de Grasas o Aceites", 
+    grease_trap = st.toggle(
+        label="Uso de Trampa de Grasas", 
         value=False,
-        help="Active esta opción si el agua a tratar contiene residuos grasos o aceites vegetales/animales."
+        help="Active esta opción si el sistema contempla una trampa de grasas para tratar residuos grasos o aceites vegetales/animales."
     )
 
     # Water Reuse Purpose
     reuse_options = {
-        "Descarga de sanitarios": "Toilet flushing",
-        "Riego de áreas verdes": "Irrigation",
-        "Limpieza de exteriores": "Outdoor cleaning",
-        "Uso industrial": "Industrial use"
+        "Urbano Interior (Cisternas, lavado)": "Toilet flushing",
+        "Urbano no Potable (Lavado de calles/autos)": "Street/Car Washing",
+        "Agricultura no Restringida / Acuicultura": "Irrigation",
+        "Agricultura Restringida / Acuicultura": "Outdoor cleaning",
+        "Enfriamiento Industrial": "Industrial use"
     }
     reuse_purpose = st.selectbox("Water Reuse / Propósito de Reuso", options=list(reuse_options.keys()))
 
@@ -192,8 +187,9 @@ if st.button("Ejecutar Analisis", disabled=(total_w != 100)):
         project_params = {
             'point' : Point(user_lon,user_lat),
             'project type': project_type,
-            'reuse options' : reuse_options,
-            'grease_p' : grease_present,
+            'reuse purpose' : reuse_purpose,
+            'p_gtrap': grease_trap,
+            'contaminants' : greywater_con,
             'st_layer' : gpkg_stratum,
             'population' : population,
             'av_area' : available_area,
@@ -204,7 +200,10 @@ if st.button("Ejecutar Analisis", disabled=(total_w != 100)):
             'ptar' : gpkg_ptar,
             'energy' : gpkg_elect,
             'zoning' : gpkg_gzones,
-            'w_bodies': gpkg_water
+            'w_bodies': gpkg_water,
+            'w_econ': w_econ,
+            'w_tech': w_tech,
+            'w_soc': w_soc
         }
         db.evaluate_ind(project_params)
     else:
