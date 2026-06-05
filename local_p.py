@@ -1,8 +1,8 @@
 import geopandas as gpd
 from shapely.geometry import Point
 import streamlit as st
-import os
 import pandas as pd
+import io
 
 def read_stratum(my_point: Point, uploaded_file):
     
@@ -134,9 +134,9 @@ def evaluate_values(params):
     d_road = int(nearest_shape(params['point'],params['roads']))
     d_parks = int(nearest_shape(params['point'],params['parks']))
     d_ptar = int(nearest_shape(params['point'],params['ptar']))
-    d_supply = int(d_road*0.5)
+    d_supply = int(nearest_shape(params['point'],params['supply']))
     d_energy = int(d_road*1.2)
-    d_sewage = int(d_road*0.7)
+    d_sewage = int(nearest_shape(params['point'],params['sewage']))
 
     #Evaluate typical population densities in accordance with the type of project
     match str(params['project type']):
@@ -167,3 +167,17 @@ def evaluate_values(params):
         'Res_zone': res_zone
     }
     return values
+
+def to_excel(results):
+    output = io.BytesIO()
+
+    #Open the writer ONCE outside the loop
+    with pd.ExcelWriter(output, engine="openpyxl") as writer:
+        # Unpack dict keys (name) and values (sheet)
+        for name, sheet in results.items():
+            sheet.to_excel(writer, index=False, sheet_name=name)
+
+    # The writer automatically saves and closes when exiting the 'with' block
+
+    processed_data = output.getvalue()
+    return processed_data

@@ -205,7 +205,26 @@ if st.button("Ejecutar Analisis", disabled=(total_w != 100)):
             'w_tech': w_tech,
             'w_soc': w_soc
         }
-        db.evaluate_ind(project_params)
+        if "analysis_done" not in st.session_state:
+            st.session_state.analysis_done = False
+        if "final_df" not in st.session_state:
+            st.session_state.final_df = None
+        
+        excel_data = db.evaluate_ind(project_params)
+
+        if st.session_state.analysis_done:
+            st.subheader("Analysis Results")
+            st.dataframe(st.session_state.final_df)
+
+            # The download button appears dynamically right here
+            st.download_button(
+                label="📥 Descargar Tablas Totalizadas (Excel)",
+                data=excel_data,
+                file_name="SCDMSS_Totalized_Report.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
+
+
     else:
         st.warning("Please click a location on the map to start the analysis.")
 

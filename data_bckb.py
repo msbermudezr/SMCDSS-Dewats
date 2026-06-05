@@ -61,6 +61,19 @@ def evaluate_ind(params):
     st.write("Weighted Results:", final_weighted_matrix)
     st.write("Final Scores:", final_score)
 
+    output_d = {
+        'n_data': n_data,
+        'w_results': final_weighted_matrix,
+        'f_scores': final_score
+    }
+
+    processed_data = lp.to_excel(output_d)
+
+    st.session_state.final_df = final_score
+    st.session_state.analysis_done = True
+    
+    return processed_data
+
 def t_weight(n_data, r_weights):
     # 1. Filter for numbers
     r_numeric = r_weights.select_dtypes(include=['number'])
