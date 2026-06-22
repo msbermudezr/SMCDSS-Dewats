@@ -6,21 +6,21 @@ def evaluate_ind(params):
 
     r_weight_m = {
         "Criteria": ["Project_size", "Inv_system", "O&M_Costs", "Management_O&M_KN", "Peri-urban_exp_areas", "Reuse", "Sew_cover", "Area", "Dist_treatment_point", "Topography", "Resource Recovery", "Energy availability", "Environmental risk", "Population size", "Social participation", "Population density", "Water stress resilience", "Sludge production", "Smell_noise", "Org_Removal_Eff", "Nut_Removal_Eff", "Pathogen_Inactivation"],
-        "CW": [0, 0.5, 0.75, 0.75, 1, 0, 0.25, 0.25, 0.75, 1, 0.75, 1, 0.5, 0.5, 0.75, 0.25, 0.75, 0.75, 0.5, 0.5, 0.25, 0.5],
-        "UASB": [0, 0.5, 0.75, 0.75, 0.5, 0, 0.5, 0.5, 0.5, 0.25, 1, 1, 0.5, 0.75, 0.5, 0.5, 0.25, 0.75, 0.5, 0.5, 0.25, 0.5],
-        "SBR": [0, 0.25, 0.25, 0.25, 0.25, 0, 0.75, 1, 0.25, 0.25, 0, 0.25, 0.75, 0.75, 0.25, 1, 1, 0.25, 0.75, 1, 1, 0.75],
+        "CW": [0, 0.5, 0.75, 0.75, 1, 0, 0.25, 0.25, 0.75, 0, 0.75, 1, 0.5, 0.5, 0.75, 0.25, 0.75, 0.75, 0.5, 0.5, 0.25, 0.5],
+        "UASB": [0, 0.5, 0.75, 0.75, 0.5, 0, 0.5, 0.5, 0.5, 0.75, 1, 0.75, 0.5, 0.75, 0.5, 0.5, 0.25, 0.75, 0.5, 0.5, 0.25, 0.5],
+        "SBR": [0, 0.5, 0.5, 0.25, 0.25, 0, 0.75, 1, 0.25, 0.75, 0, 0.25, 0.75, 0.75, 0.25, 1, 1, 0.25, 0.75, 1, 1, 0.75],
         "VF": [0, 0.75, 0.75, 0.5, 0.5, 0, 0.25, 0.25, 0.5, 0.5, 0.75, 0.75, 0.25, 0.25, 0.75, 0.25, 0.75, 1, 0.5, 0.75, 0.5, 0.5],
-        "AF": [0, 0.75, 0.5, 0.75, 0.75, 0, 0.25, 0.5, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.25, 0.25, 0.75, 0.75, 0.5, 0.25, 0.75],
-        "RBC": [0, 0.5, 0.5, 0.75, 0.5, 0, 0.75, 0.75, 0.25, 0.25, 0.25, 0.75, 0.75, 0.5, 0.25, 0.5, 0.25, 0.25, 0.75, 0.5, 0.5, 0.5],
-        "SAS": [0, 0.75, 0.75, 1, 0.75, 0, 0.25, 0.25, 0.25, 0.5, 0, 1, 0, 0.25, 0.75, 0.25, 0.75, 0.5, 0.25, 0.5, 0.25, 0.75],
-        "MBR": [0, 0.25, 0.25, 0.25, 0.25, 0, 1, 1, 0.5, 0.25, 0, 0.25, 1, 1, 0.25, 1, 1, 0.75, 1, 1, 1, 1],
+        "AF": [0, 0.75, 0.5, 0.75, 0.75, 0, 0.25, 0.5, 0.5, 0.75, 0.5, 0.75, 0.5, 0.25, 0.5, 0.25, 0.25, 0.75, 0.75, 0.5, 0.25, 0.75],
+        "RBC": [0, 0.5, 0.5, 0.75, 0.5, 0, 0.75, 0.75, 0.25, 0.75, 0.25, 0.75, 0.75, 0.5, 0.25, 0.5, 0.25, 0.25, 0.75, 0.5, 0.5, 0.5],
+        "ST+SAS": [0, 0.75, 0.75, 1, 0.75, 0, 0.25, 0.25, 0.25, 0.5, 0, 1, 0, 0.25, 0.75, 0.25, 0.75, 0.5, 0.25, 0.5, 0.25, 0.75],
+        "MBR": [0, 0.25, 0.25, 0.25, 0.25, 0, 1, 1, 0.5, 0.75, 0, 0.25, 1, 1, 0.25, 1, 1, 0.75, 1, 1, 1, 1],
         "Type": ["Economic", "Economic", "Economic", "Economic", "Economic", "Technical", "Technical", "Technical", "Technical", "Technical", "Technical", "Technical", "Social", "Technical", "Social", "Technical", "Technical", "Technical", "Social", "Technical", "Technical", "Technical"],
-        "Variable": ["Proj_type", "Stratum", "Stratum", "Urb_area", "Peri_urb", "Green_areas", "Sew_Dist", "Area", "Dist_ptar", "Slope", "Proj_type", "En_grid", "Green_areas", "Population", "Proj_type", "Population_den", "Sup_grid", "Dist_road", "Res_zone", "Proj_type", "Proj_type", "Proj_type"],
-        "Inverse": [False, True, True, False, False, True, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False],
+        "Variable": ["Proj_type", "Stratum", "Stratum", "Proj_type", "Peri_urb", "Green_areas", "Sew_Dist", "Area", "Dist_ptar", "Slope", "Proj_type", "En_grid", "Green_areas", "Population", "Proj_type", "Population_den", "Sup_grid", "Dist_road", "Res_zone", "Proj_type", "Proj_type", "Proj_type"],
+        "Inverse": [False, True, True, False, False, True, False, True, False, True, False, False, True, True, False, False, False, False, False, False, False, False],
     }
 
     i_ranges_df = {
-        "Variable": ["Proj_type", "Stratum", "Stratum", "Urb_area", "Peri_urb", "Green_areas", "Sew_Dist", "Area", "Dist_ptar", "Slope", "Proj_type", "En_grid", "Green_areas", "Population", "Proj_type", "Population_den", "Sup_grid", "Dist_road", "Res_zone", "Proj_type", "Proj_type", "Proj_type"],
+        "Variable": ["Proj_type", "Stratum", "Stratum", "Proj_type", "Peri_urb", "Green_areas", "Sew_Dist", "Area", "Dist_ptar", "Slope", "Proj_type", "En_grid", "Green_areas", "Population", "Proj_type", "Population_den", "Sup_grid", "Dist_road", "Res_zone", "Proj_type", "Proj_type", "Proj_type"],
         "Max": [1, 6, 6, 1, 1, 5000, 2000, 4000, 30000, 5, 1, 2000, 5000, 5000, 1, 650, 5000, 5000, 1, 1, 1, 1],
         "Min": [0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0],
     }
@@ -119,13 +119,19 @@ def norm_criteria(ind_data, ranges_df):
 def r_type(r_purpose,r_weight):
     match str(r_purpose):
         case "Urbano Interior (Cisternas, lavado)":
-            pt_rw = {"CW": 0,"UASB":0,"SBR":1,"VF":0.75,"AF":0,"RBC":0.5,"SAS":0,"MBR":1}
+            pt_rw = {"CW": 0,"UASB":0,"SBR":1,"VF":0.25,"AF":0,"RBC":0.75,"SAS":0,"MBR":1}
         case 'Urbano no Potable (Lavado de calles/autos)':
-            pt_rw = {"CW": 0.5,"UASB":0.25,"SBR":1,"VF":0.75,"AF":0.25,"RBC":0.75,"SAS":0.25,"MBR":1}
-        case "Agricultura no Restringida / Acuicultura":
-            pt_rw = {"CW": 0,"UASB":0.25,"SBR":1,"VF":1,"AF":0.25,"RBC":0.75,"SAS":0.25,"MBR":1}
+            pt_rw = {"CW": 0.5,"UASB":0.25,"SBR":1,"VF":1,"AF":0.25,"RBC":0.75,"SAS":0.5,"MBR":0.5}
+        case "Irrigación no Restringida":
+            pt_rw = {"CW": 1,"UASB":0.25,"SBR":0.75,"VF":1,"AF":0.25,"RBC":0.75,"SAS":0.5,"MBR":1}
+            p_nre = {"CW": 0.75,"UASB":0.75,"SBR":0,"VF":0.5,"AF":0.75,"RBC":0.5,"SAS":0.75,"MBR":0}
+            p_nre = pd.DataFrame([p_nre],index=["Nut_Removal_Eff"])
+            r_weight.update(p_nre)
         case "Agricultura Restringida / Acuicultura":
-            pt_rw = {"CW": 1,"UASB":0.25,"SBR":1,"VF":1,"AF":0.25,"RBC":0.75,"SAS":0.5,"MBR":1}
+            pt_rw = {"CW": 0,"UASB":1,"SBR":0.5,"VF":1,"AF":0.25,"RBC":0.5,"SAS":0.25,"MBR":1}
+            p_nre = {"CW": 0.75,"UASB":0.75,"SBR":0,"VF":0.5,"AF":0.75,"RBC":0.5,"SAS":0.75,"MBR":0}
+            p_nre = pd.DataFrame([p_nre],index=["Nut_Removal_Eff"])
+            r_weight.update(p_nre)
         case "Enfriamiento Industrial":
             pt_rw = {"CW": 0,"UASB":0.25,"SBR":0.75,"VF":0,"AF":0.25,"RBC":0.25,"SAS":0,"MBR":1}
 
@@ -137,7 +143,7 @@ def r_type(r_purpose,r_weight):
 def p_type(pr_type,population,r_weight):
     match str(pr_type):
         case "Unidad Habitacional en Propiedad Horizontal":
-            pt_rw = {"CW": 0.25,"UASB":0.75,"SBR":1,"VF":0.75,"AF":1,"RBC":0.5,"SAS":1,"MBR":0}
+            pt_rw = {"CW": 0.25,"UASB":0.75,"SBR":1,"VF":0.75,"AF":1,"RBC":0.5,"SAS":0,"MBR":0}
         case "Predio Residencial con Autonomía de Lote":
             if population < 25:
                 pt_rw = {"CW": 0.25,"UASB":0.75,"SBR":0.25,"VF":0.50,"AF":0.75,"RBC":0.5,"SAS":1,"MBR":0}

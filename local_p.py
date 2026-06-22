@@ -109,7 +109,7 @@ def nearest_shape(target_point: Point, uploaded_file) -> float:
             return float(result['dist_m'].values[0])
     except Exception as e:
         print(f"Error in nearest_shape: {e}")
-    return -1.0
+    return 0.0
 
 def evaluate_values(params):
 
@@ -132,7 +132,10 @@ def evaluate_values(params):
         res_zone = 1
 
     d_road = int(nearest_shape(params['point'],params['roads']))
-    d_parks = int(nearest_shape(params['point'],params['parks']))
+    if zone == "Suelo Urbano":
+        d_parks = int(nearest_shape(params['point'],params['parks']))
+    else:
+        d_parks = 0
     d_ptar = int(nearest_shape(params['point'],params['ptar']))
     d_supply = int(nearest_shape(params['point'],params['supply']))
     d_energy = int(d_road*1.2)

@@ -43,9 +43,9 @@ with st.sidebar:
         gpkg_stratum = st.file_uploader("Select GPKG", type=["gpkg"], key="up_stratum", label_visibility="collapsed")
         notify_on_upload(gpkg_stratum, "stratum")
 
-    with st.expander("🌊 Cuerpos de Agua"):
-        gpkg_water = st.file_uploader("Select GPKG", type=["gpkg"], key="up_water", label_visibility="collapsed")
-        notify_on_upload(gpkg_water, "water")
+    with st.expander("⛰️​ Curvas de Elevación"):
+        gpkg_elev = st.file_uploader("Select GPKG", type=["gpkg"], key="up_elev", label_visibility="collapsed")
+        notify_on_upload(gpkg_elev, "elev")
     
     with st.expander("🌳​ Zonas Verdes"):
         gpkg_parks = st.file_uploader("Select GPKG", type=["gpkg"], key="up_parks", label_visibility="collapsed")
@@ -115,16 +115,16 @@ with col2:
         "Núcleo Residencial Comunitario": "Neighborhood",
         "Macroproyecto de Desarrollo Urbano": "Urban Development"
     }
-    project_type = st.selectbox("Project Type / Tipo de Proyecto", options=list(project_options.keys()))
+    project_type = st.selectbox("Tipo de Proyecto", options=list(project_options.keys()))
 
     # Graywater Sources
     greywater_comp = ['Grasas y Aceites','Cloro y Desinfectantes', 'Detergentes y Tensioactivos', 'Solidos Suspendidos Gruesos y Material no Biodegradable']
 
     # Streamlit Multi-select
     greywater_con = st.multiselect(
-        "Seleccione las sustancias inhibidoras o contaminantes críticos en el afluente:",
+        "Sustancias Inhibidoras o Contaminantes Críticos:",
         options=list(greywater_comp),
-        help="Identifique la presencia de agentes inhibidores en el agua residual cruda."
+        help="Identifique la presencia de agentes inhibidores o contaminantes en el agua residual cruda."
     )
 
     # Presence of oil
@@ -139,11 +139,11 @@ with col2:
     reuse_options = {
         "Urbano Interior (Cisternas, lavado)": "Toilet flushing",
         "Urbano no Potable (Lavado de calles/autos)": "Street/Car Washing",
-        "Agricultura no Restringida / Acuicultura": "Irrigation",
+        "Irrigación no Restringida": "Irrigation",
         "Agricultura Restringida / Acuicultura": "Outdoor cleaning",
         "Enfriamiento Industrial": "Industrial use"
     }
-    reuse_purpose = st.selectbox("Water Reuse / Propósito de Reuso", options=list(reuse_options.keys()))
+    reuse_purpose = st.selectbox("Propósito de Reuso", options=list(reuse_options.keys()))
 
     st.divider()
 
@@ -156,7 +156,7 @@ with col2:
         help= "Indique la población estimada para la cual servira el sistema.")
 
     available_area = st.number_input(
-        "Available Area (m²):", 
+        "Area Disponible (m²):", 
         min_value=0.0, 
         step=1.0, 
         help="Espacio total disponible para la construcción del sistema de tratamiento"
@@ -200,7 +200,7 @@ if st.button("Ejecutar Analisis", disabled=(total_w != 100)):
             'ptar' : gpkg_ptar,
             'energy' : gpkg_elect,
             'zoning' : gpkg_gzones,
-            'w_bodies': gpkg_water,
+            'c_elev': gpkg_elev,
             'w_econ': w_econ,
             'w_tech': w_tech,
             'w_soc': w_soc
